@@ -1,3 +1,4 @@
+use std::io::Read;
 use std::{error::Error, fs::File, io::BufReader, path::Path};
 
 use crate::Json;
