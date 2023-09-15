@@ -1,9 +1,19 @@
 use serdejsonbench::JsonIterator;
-use serdejsonbench::{iter_json_array, Json};
+use serdejsonbench::{iter_json_array, read_from_file2, Json};
 use std::fs::File;
 use std::{io::Write, time::Instant};
 
 use std::io::BufReader;
+
+fn parsev3() {
+    let iter = read_from_file2(r#"../../json/256MB.json"#).unwrap();
+    let mut count = 0;
+    for json in iter {
+        assert_eq!("FULL", json.delta_mode);
+        count = count + 1;
+    }
+    assert_eq!(68495, count);
+}
 
 fn parsev2() {
     let reader = BufReader::with_capacity(8192, File::open(r#"../../json/256MB.json"#).unwrap());
@@ -31,6 +41,7 @@ fn parse() {
 enum Method {
     V1,
     V2,
+    V3,
 }
 
 fn main() {
@@ -40,9 +51,18 @@ fn main() {
         let now = Instant::now();
         let times: u32 = args[2].as_str().parse().unwrap();
 
-        let method = if args.len() > 4 && args[3] == "--method" && args[4] == "v2" {
-            println!("v2 version");
-            Method::V2
+        let method = if args.len() > 4 && args[3] == "--method" {
+            match args[4].as_str() {
+                "v2" => {
+                    println!("v2 version");
+                    Method::V2
+                }
+                "v3" => {
+                    println!("v3 version");
+                    Method::V3
+                }
+                _ => panic!("unexpected version"),
+            }
         } else {
             println!("v1 version");
             Method::V1
@@ -51,6 +71,7 @@ fn main() {
         let parse = match method {
             Method::V1 => parse,
             Method::V2 => parsev2,
+            Method::V3 => parsev3,
         };
 
         for _ in 0..times {
