@@ -15,11 +15,6 @@ jobs:
     - name: setup-files
       run: ./uncompress.sh
 
-    - uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: '8.0.x'
-    - run: cd dotnet/jsonbench && dotnet build -c Release -o out/bin && /usr/bin/time -pv -- ./out/bin/jsonbench --console --times 10
-
     - name: rust/benchmark/v3
       run: cd rust/serdejsonbench && cargo build -r --examples && /usr/bin/time -pv -- ./target/release/examples/bench --console --times 10 --method v3
 
@@ -32,7 +27,7 @@ jobs:
     - uses: actions/setup-java@v3
       with:
         distribution: 'temurin'
-        java-version: '17'
+        java-version: '20'
         cache: 'maven'
 
     - name: java/gson benchmark
@@ -40,3 +35,8 @@ jobs:
     
     - name: java/jackson benchmark
       run: cd java/benchmark-jackson && mvn clean package -DskipTests && /usr/bin/time -pv -- java -cp ./target/uber-benchmark-jackson-0.0.1-SNAPSHOT.jar com.jsonbench.Main --console --times 10
+
+    - uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '8.0.x'
+    - run: cd dotnet/jsonbench && dotnet build -c Release -o out/bin && /usr/bin/time -pv -- ./out/bin/jsonbench --console --times 10
