@@ -1,3 +1,4 @@
+// https://github.com/serde-rs/json/issues/404#issuecomment-892957228
 use serde::de::DeserializeOwned;
 use serde_json::{self, Deserializer};
 use std::io::{self, Read};
