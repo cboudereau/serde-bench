@@ -15,7 +15,7 @@ jobs:
     - uses: actions/setup-dotnet@v3
       with:
         dotnet-version: '8.0.x'
-    - run: cd dotnet/jsonbench && dotnet publish -c Release -o out && ls ./out
+    - run: cd dotnet/jsonbench && dotnet publish -c Release -o out && /usr/bin/time -pv -- ./out/jsonbench --console --times 10
 
     - name: setup-files
       run: ./uncompress.sh
