@@ -18,6 +18,9 @@ jobs:
     - name: rust/benchmark
       run: cd rust/serdejsonbench && cargo build -r --examples && ./target/release/examples/bench --console --times 10
 
+    - name: rust/benchmark/v2
+      run: cd rust/serdejsonbench && cargo build -r --examples && ./target/release/examples/bench --console --times 10 --method v2
+
     - uses: actions/setup-dotnet@v3
       with:
         dotnet-version: '8.0.x'
