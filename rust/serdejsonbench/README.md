@@ -7,5 +7,5 @@ cargo bench
 
 ## benchmark console
 ```bash
-ca build -r --examples && .\target\release\examples\bench.exe --console --times 10
+ca build -r --examples && ./target/release/examples/bench.exe --console --times 10
 ```

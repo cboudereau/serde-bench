@@ -14,7 +14,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    
+
+    - name: setup-files
+      run: ./uncompress.sh
+
     - name: rust/benchmark
       run: cd rust/serdejsonbench && cargo build -r --examples && .\target\release\examples\bench.exe --console --times 10
     
@@ -23,8 +26,6 @@ jobs:
         distribution: 'temurin'
         java-version: '17'
         cache: 'maven'
-    - name: setup-files
-      run: ./uncompress.sh
 
     - name: java/gson benchmark
       run: cd java/benchmark-gson && mvn clean package -DskipTests && java -cp ./target/uber-benchmark-gson-0.0.1-SNAPSHOT.jar com.jsonbench.Main --console --times 10
