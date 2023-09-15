@@ -6,7 +6,6 @@ use std::{io::Write, time::Instant};
 use std::io::BufReader;
 
 fn parsev2() {
-    println!("v2 version");
     let reader = BufReader::with_capacity(8192, File::open(r#"../../json/256MB.json"#).unwrap());
     let iter = iter_json_array(reader);
     let mut count = 0;
@@ -19,7 +18,6 @@ fn parsev2() {
 }
 
 fn parse() {
-    println!("v1 version");
     let iter = JsonIterator::new(r#"../../json/256MB.json"#.into());
     let mut count = 0;
     for json in iter {
@@ -43,8 +41,10 @@ fn main() {
         let times: u32 = args[2].as_str().parse().unwrap();
 
         let method = if args.len() > 4 && args[3] == "--method" && args[4] == "v2" {
+            println!("v2 version");
             Method::V2
         } else {
+            println!("v1 version");
             Method::V1
         };
 
