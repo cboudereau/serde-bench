@@ -56,7 +56,7 @@ fn main() {
                 println!("v2 version");
                 Method::V2
             } else if args[4] == "v3" {
-                println!("v1 version");
+                println!("v3 version");
                 Method::V3
             }
         } else {

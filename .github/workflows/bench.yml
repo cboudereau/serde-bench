@@ -15,6 +15,9 @@ jobs:
     - name: setup-files
       run: ./uncompress.sh
 
+    - name: rust/benchmark/v3
+      run: cd rust/serdejsonbench && cargo build -r --examples && ./target/release/examples/bench --console --times 10 --method v3
+
     - name: rust/benchmark/v2
       run: cd rust/serdejsonbench && cargo build -r --examples && ./target/release/examples/bench --console --times 10 --method v2
 
