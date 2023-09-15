@@ -3,9 +3,7 @@
 use serdejsonbench::JsonIterator;
 
 fn main() -> std::io::Result<()> {
-    let iter = JsonIterator::new(
-        r#"../../json/256MB.json"#.into(),
-    );
+    let iter = JsonIterator::new(r#"../../json/256MB.json"#.into());
     let mut count = 0;
     for json in iter {
         let json = json.unwrap();
