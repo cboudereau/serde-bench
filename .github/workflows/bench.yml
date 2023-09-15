@@ -16,27 +16,27 @@ jobs:
       run: ./uncompress.sh
 
     - name: rust/benchmark/v3
-      run: cd rust/serdejsonbench && cargo build -r --examples && ./target/release/examples/bench --console --times 10 --method v3
+      run: cd rust/serdejsonbench && cargo build -r --examples && /usr/bin/time -pv -- ./target/release/examples/bench --console --times 10 --method v3
 
     - name: rust/benchmark/v2
-      run: cd rust/serdejsonbench && cargo build -r --examples && ./target/release/examples/bench --console --times 10 --method v2
+      run: cd rust/serdejsonbench && cargo build -r --examples && /usr/bin/time -pv -- ./target/release/examples/bench --console --times 10 --method v2
 
     - name: rust/benchmark/v1
-      run: cd rust/serdejsonbench && cargo build -r --examples && ./target/release/examples/bench --console --times 10
-
-    - uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: '8.0.x'
-    - run: cd dotnet/jsonbench && dotnet run -c Release -- --console --times 10
+      run: cd rust/serdejsonbench && cargo build -r --examples && /usr/bin/time -pv -- ./target/release/examples/bench --console --times 10
     
     - uses: actions/setup-java@v3
       with:
         distribution: 'temurin'
-        java-version: '17'
+        java-version: '20'
         cache: 'maven'
 
     - name: java/gson benchmark
-      run: cd java/benchmark-gson && mvn clean package -DskipTests && java -cp ./target/uber-benchmark-gson-0.0.1-SNAPSHOT.jar com.jsonbench.Main --console --times 10
+      run: cd java/benchmark-gson && mvn clean package -DskipTests && /usr/bin/time -pv -- java -cp ./target/uber-benchmark-gson-0.0.1-SNAPSHOT.jar com.jsonbench.Main --console --times 10
     
     - name: java/jackson benchmark
-      run: cd java/benchmark-jackson && mvn clean package -DskipTests && java -cp ./target/uber-benchmark-jackson-0.0.1-SNAPSHOT.jar com.jsonbench.Main --console --times 10
+      run: cd java/benchmark-jackson && mvn clean package -DskipTests && /usr/bin/time -pv -- java -cp ./target/uber-benchmark-jackson-0.0.1-SNAPSHOT.jar com.jsonbench.Main --console --times 10
+
+    - uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '8.0.x'
+    - run: cd dotnet/jsonbench && dotnet build -c Release -o out/bin && /usr/bin/time -pv -- ./out/bin/jsonbench --console --times 10
