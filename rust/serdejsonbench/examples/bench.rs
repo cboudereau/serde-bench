@@ -1,7 +1,7 @@
-use serdejsonbench::JsonIterator;
-use std::{io::Write, time::Instant};
-use std::fs::File;
 use serdejsonbench::iter_json_array;
+use serdejsonbench::JsonIterator;
+use std::fs::File;
+use std::{io::Write, time::Instant};
 
 use std::io::BufReader;
 
@@ -30,7 +30,7 @@ fn parse() {
 
 enum Method {
     V1,
-    V2
+    V2,
 }
 
 fn main() {
@@ -47,8 +47,8 @@ fn main() {
         };
 
         let parse = match method {
-            Method.V1 => parse,
-            Method.V2 => parsev2,
+            Method::V1 => parse,
+            Method::V2 => parsev2,
         };
 
         for _ in 0..times {
