@@ -51,12 +51,14 @@ fn main() {
         let now = Instant::now();
         let times: u32 = args[2].as_str().parse().unwrap();
 
-        let method = if args.len() > 4 && args[3] == "--method" && args[4] == "v2" {
-            println!("v2 version");
-            Method::V2
-        } else if args[4] == "v3" {
-            println!("v1 version");
-            Method::V3
+        let method = if args.len() > 4 && args[3] == "--method" {
+            if (args[4] == "v2") {
+                println!("v2 version");
+                Method::V2
+            } else if args[4] == "v3" {
+                println!("v1 version");
+                Method::V3
+            }
         } else {
             println!("v1 version");
             Method::V1
