@@ -1,5 +1,5 @@
-use serdejsonbench::iter_json_array;
 use serdejsonbench::JsonIterator;
+use serdejsonbench::{iter_json_array, Json};
 use std::fs::File;
 use std::{io::Write, time::Instant};
 
@@ -10,7 +10,7 @@ fn parsev2() {
     let iter = iter_json_array(reader);
     let mut count = 0;
     for json in iter {
-        let json = json.unwrap();
+        let json: Json = json.unwrap();
         assert_eq!("FULL", json.delta_mode);
         count = count + 1;
     }
