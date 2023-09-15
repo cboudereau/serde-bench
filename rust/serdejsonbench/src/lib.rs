@@ -6,7 +6,7 @@ mod serde_json_stream_deserializer;
 pub use serde_json_stream_deserializer::JsonIterator;
 
 mod serde_json_simple_deserializer;
-pub use serde_json_simple_deserializer::{read_from_file, readone_from_file};
+pub use serde_json_simple_deserializer::{read_from_file, read_from_file2, readone_from_file};
 
 mod serde_json_stream_deserializer2;
 

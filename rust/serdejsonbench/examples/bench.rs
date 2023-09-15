@@ -1,9 +1,19 @@
 use serdejsonbench::JsonIterator;
-use serdejsonbench::{iter_json_array, Json};
+use serdejsonbench::{iter_json_array, read_from_file2, Json};
 use std::fs::File;
 use std::{io::Write, time::Instant};
 
 use std::io::BufReader;
+
+fn parsev3() {
+    let iter = read_from_file2(r#"../../json/256MB.json"#).unwrap();
+    let mut count = 0;
+    for json in iter {
+        assert_eq!("FULL", json.delta_mode);
+        count = count + 1;
+    }
+    assert_eq!(68495, count);
+}
 
 fn parsev2() {
     let reader = BufReader::with_capacity(8192, File::open(r#"../../json/256MB.json"#).unwrap());
