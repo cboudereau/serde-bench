@@ -8,7 +8,7 @@ use std::{
 use crate::Json;
 
 pub fn read_from_file2<P: AsRef<Path>>(path: P) -> Result<Vec<Json>, Box<dyn Error>> {
-    let file = File::open(path)?;
+    let mut file = File::open(path)?;
     //https://github.com/serde-rs/json/issues/160
     let size = file.metadata().unwrap().len();
     let mut bytes = Vec::with_capacity(size.try_into().unwrap());
