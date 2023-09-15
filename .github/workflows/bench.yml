@@ -1,4 +1,4 @@
-name: build-java
+name: bench
 
 on:
   push:
