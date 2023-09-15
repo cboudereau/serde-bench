@@ -6,7 +6,10 @@ use std::{io::Write, time::Instant};
 use std::io::BufReader;
 
 fn parsev2() {
-    let reader = BufReader::with_capacity(8192, File::open(r#"../../json/256MB.json"#).unwrap());
+    let reader = BufReader::with_capacity(
+        8 * 1024 * 1024,
+        File::open(r#"../../json/256MB.json"#).unwrap(),
+    );
     let iter = iter_json_array(reader);
     let mut count = 0;
     for json in iter {
