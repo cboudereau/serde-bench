@@ -1,5 +1,21 @@
 use serdejsonbench::JsonIterator;
 use std::{io::Write, time::Instant};
+use std::fs::File;
+use serdejsonbench::iter_json_array;
+
+use std::io::BufReader;
+
+fn parsev2() {
+    let reader = BufReader::with_capacity(8192, File::open(r#"../../json/256MB.json"#).unwrap());
+    let iter = iter_json_array(reader);
+    let mut count = 0;
+    for json in iter {
+        let json = json.unwrap();
+        assert_eq!("FULL", json.delta_mode);
+        count = count + 1;
+    }
+    assert_eq!(68495, count);
+}
 
 fn parse() {
     let iter = JsonIterator::new(r#"../../json/256MB.json"#.into());
@@ -12,12 +28,28 @@ fn parse() {
     assert_eq!(68495, count);
 }
 
+enum Method {
+    V1,
+    V2
+}
+
 fn main() {
     let args: Vec<String> = std::env::args().skip(1).collect();
 
-    if args.len() == 3 && args[0] == "--console" && args[1] == "--times" {
+    if args.len() > 2 && args[0] == "--console" && args[1] == "--times" {
         let now = Instant::now();
         let times: u32 = args[2].as_str().parse().unwrap();
+
+        let method = if args > 4 && args[3] == "--method" && args[4] == "v2" {
+            Method.V2
+        } else {
+            Method.V1
+        }
+
+        let parse = match method {
+            Method.V1 => parse,
+            Method.V2 => parsev2,
+        }
 
         for _ in 0..times {
             print!(".");
