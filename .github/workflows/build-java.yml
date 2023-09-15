@@ -19,6 +19,8 @@ jobs:
         distribution: 'temurin'
         java-version: '17'
         cache: 'maven'
+    - name: build only
+      run: cd java/benchmark-gson && mvn clean package -DskipTests    
     - name: debug
       run: ls -l ./java/benchmark-gson/target
     - name: setup-files
