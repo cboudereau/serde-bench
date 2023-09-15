@@ -19,7 +19,8 @@ jobs:
         distribution: 'temurin'
         java-version: '17'
         cache: 'maven'
-    
+    - name: debug
+      run: ls java/benchmark-gson/target
     - name: gson benchmark
-      run: cd java/benchmark-gson && mvn clean package -DskipTests && java -cp .\target\uber-benchmark-gson-0.0.1-SNAPSHOT.jar com.jsonbench.Main --console --times 10
+      run: cd java/benchmark-gson && mvn clean package -DskipTests && java -cp ./target/uber-benchmark-gson-0.0.1-SNAPSHOT.jar com.jsonbench.Main --console --times 10
     
