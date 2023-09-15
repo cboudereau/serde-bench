@@ -41,6 +41,7 @@ fn parse() {
 enum Method {
     V1,
     V2,
+    V3,
 }
 
 fn main() {
@@ -53,6 +54,9 @@ fn main() {
         let method = if args.len() > 4 && args[3] == "--method" && args[4] == "v2" {
             println!("v2 version");
             Method::V2
+        } else if args[4] == "v3" {
+            println!("v1 version");
+            Method::V3
         } else {
             println!("v1 version");
             Method::V1
@@ -61,6 +65,7 @@ fn main() {
         let parse = match method {
             Method::V1 => parse,
             Method::V2 => parsev2,
+            Method::V3 => parsev3,
         };
 
         for _ in 0..times {
