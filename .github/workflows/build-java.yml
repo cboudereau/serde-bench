@@ -20,7 +20,9 @@ jobs:
         java-version: '17'
         cache: 'maven'
     - name: debug
-      run: ls java/benchmark-gson/target
+      run: ls -l ./java/benchmark-gson/target
+    - name: setup-files
+      run: ./uncompress.sh
     - name: gson benchmark
       run: cd java/benchmark-gson && mvn clean package -DskipTests && java -cp ./target/uber-benchmark-gson-0.0.1-SNAPSHOT.jar com.jsonbench.Main --console --times 10
     
