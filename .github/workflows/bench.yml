@@ -12,13 +12,13 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
+    - name: setup-files
+      run: ./uncompress.sh
+
     - uses: actions/setup-dotnet@v3
       with:
         dotnet-version: '8.0.x'
     - run: cd dotnet/jsonbench && dotnet build -c Release -o out/bin && /usr/bin/time -pv -- ./out/bin/jsonbench --console --times 10
-
-    - name: setup-files
-      run: ./uncompress.sh
 
     - name: rust/benchmark/v3
       run: cd rust/serdejsonbench && cargo build -r --examples && /usr/bin/time -pv -- ./target/release/examples/bench --console --times 10 --method v3
