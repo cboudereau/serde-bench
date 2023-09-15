@@ -52,7 +52,7 @@ fn main() {
         let times: u32 = args[2].as_str().parse().unwrap();
 
         let method = if args.len() > 4 && args[3] == "--method" {
-            match args[4] {
+            match args[4].as_str() {
                 "v2" => {
                     println!("v2 version");
                     Method::V2
