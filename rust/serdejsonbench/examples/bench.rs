@@ -40,7 +40,7 @@ fn main() {
         let now = Instant::now();
         let times: u32 = args[2].as_str().parse().unwrap();
 
-        let method = if args > 4 && args[3] == "--method" && args[4] == "v2" {
+        let method = if args.len() > 4 && args[3] == "--method" && args[4] == "v2" {
             Method.V2
         } else {
             Method.V1
