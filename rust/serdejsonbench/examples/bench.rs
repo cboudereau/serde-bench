@@ -44,12 +44,12 @@ fn main() {
             Method.V2
         } else {
             Method.V1
-        }
+        };
 
         let parse = match method {
             Method.V1 => parse,
             Method.V2 => parsev2,
-        }
+        };
 
         for _ in 0..times {
             print!(".");
