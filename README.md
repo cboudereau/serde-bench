@@ -25,3 +25,14 @@ fsi ./setup.fsx
 ```bash
 ./compress.sh
 ```
+
+### Benchmark result
+
+| Lang | Version | Benchmark | time | Maximum resident set size (kbytes) |
+|-|-|-|-|-|
+| Rust | 1.73.0 | v3 | avg 513ms | 274696KB |
+| Rust | 1.73.0 | v2 | avg 3341ms | 2176KB |
+| Rust | 1.73.0 | v1 | avg 3772ms | 4484KB |
+| Java | 20 | gson | avg 764ms | 121300KB |
+| Java | 20 | jackson | avg 869ms | 128952KB |
+| Dotnet | 8 | v3 | avg 958.82ms | 87084KB | 
