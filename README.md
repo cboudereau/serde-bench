@@ -3,11 +3,15 @@
 json serialization and deserialization benchmark
 
 - [x] deserialization
- - [x] java
- - [x] dotnet
- - [x] rust
-
+  - [x] java
+  - [x] dotnet
+  - [x] rust
+  - [ ] golang
 - [ ] serialization
+  - [ ] java
+  - [ ] dotnet
+  - [ ] rust
+  - [ ] golang
 
 ## setup
 ```bash
